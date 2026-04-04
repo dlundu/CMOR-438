@@ -1,6 +1,6 @@
 # cmor-438
 
-# Denise Lundu
+## Denise Lundu
 ## Overview
 This repository contains a custom machine learning package developed for **CMOR 438**.  
 The project implements classic **supervised and unsupervised learning algorithms from scratch** using NumPy, organized into a clean and modular Python package called **`rice_ml`**.
