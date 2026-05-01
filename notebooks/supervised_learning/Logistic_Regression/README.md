@@ -10,7 +10,7 @@ This project implements a **Single Artificial Neuron** from scratch to perform b
 
 ---
 
-### **Project Overview**
+### **SectionOverview**
 *   **Target Variable**: `smoker` status (0: Non-smoker, 1: Smoker).
 *   **Model**: A Single Neuron utilizing the **Sigmoid Activation Function** and **Binary Cross-Entropy Loss**.
 *   **Optimization**: Stochastic Graduate Descent (SGD) was used to iteratively update weights and bias.
