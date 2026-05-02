@@ -71,7 +71,7 @@ class Perceptron:
     Examples
     --------
     >>> import numpy as np
-    >>> from rice_ml.supervised.perceptron import Perceptron
+    >>> from rice_ml.supervised_learning import Perceptron
     >>> rng = np.random.default_rng(0)
     >>> X = rng.standard_normal((100, 2))
     >>> y = np.where(X[:, 0] + X[:, 1] > 0, 1, -1)   # linearly separable
