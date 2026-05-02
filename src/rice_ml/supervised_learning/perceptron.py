@@ -26,7 +26,7 @@ guarantees the algorithm will find a separating hyperplane in finite steps.
 
 Usage Example
 -------------
->>> from rice_ml.supervised.perceptron import Perceptron
+>>> from rice_ml.supervised_learning.perceptron import Perceptron
 >>> model = Perceptron(eta=0.01, epochs=100, random_state=42)
 >>> model.fit(X_train, y_train)
 >>> predictions = model.predict(X_test)
