@@ -1,1 +1,40 @@
-import unittest\nfrom sklearn.datasets import make_classification\nfrom sklearn.tree import DecisionTreeClassifier\nfrom sklearn.metrics import accuracy_score\n\nclass TestDecisionTreeClassifier(unittest.TestCase):\n\n    def test_fit_predict(self):\n        X, y = make_classification(n_samples=100, n_features=20, random_state=42)\n        clf = DecisionTreeClassifier(random_state=42)\n        clf.fit(X, y)\n        predictions = clf.predict(X)\n        self.assertEqual(len(predictions), len(y))\n\n    def test_accuracy_scoring(self):\n        X, y = make_classification(n_samples=100, n_features=20, random_state=42)\n        clf = DecisionTreeClassifier(random_state=42)\n        clf.fit(X, y)\n        predictions = clf.predict(X)\n        accuracy = accuracy_score(y, predictions)\n        self.assertGreaterEqual(accuracy, 0.8)  # Expecting at least 80% accuracy\n\n    def test_max_depth_limit(self):\n        X, y = make_classification(n_samples=100, n_features=20, random_state=42)\n        clf = DecisionTreeClassifier(max_depth=2, random_state=42)\n        clf.fit(X, y)\n        self.assertLessEqual(clf.get_n_leaves(), 4)  # Max depth of 2 should lead to <= 4 leaves\n\n    def test_gini_vs_entropy(self):\n        X, y = make_classification(n_samples=100, n_features=20, random_state=42)\n        clf_gini = DecisionTreeClassifier(criterion='gini', random_state=42)\n        clf_entropy = DecisionTreeClassifier(criterion='entropy', random_state=42)\n        clf_gini.fit(X, y)\n        clf_entropy.fit(X, y)\n        self.assertNotEqual(clf_gini.tree_.max_depth, clf_entropy.tree_.max_depth)  # Expecting different tree shapes\n\n    def test_edge_cases(self):\n        # Testing single sample\n        X_single = [[0]]\n        y_single = [0]\n        clf_single = DecisionTreeClassifier(random_state=42)\n        clf_single.fit(X_single, y_single)\n        self.assertEqual(clf_single.predict(X_single)[0], 0)\n\n        # Testing empty data\n        with self.assertRaises(ValueError):\n            clf_empty = DecisionTreeClassifier(random_state=42)\n            clf_empty.fit([], [])\n\n        # Testing invalid inputs\n        with self.assertRaises(ValueError):\n            clf_invalid = DecisionTreeClassifier(random_state=42)\n            clf_invalid.fit([[1, 2]], [0])\n            clf_invalid.predict([[1, 'invalid']])  # Invalid input\n\nif __name__ == '__main__':\n    unittest.main()
+import unittest
+from sklearn.datasets import make_classification
+from sklearn.tree import DecisionTreeClassifier
+import numpy as np
+
+class TestDecisionTreeClassifier(unittest.TestCase):
+
+    def setUp(self):
+        """Prepare data once for all tests."""
+        self.X, self.y = make_classification(n_samples=100, n_features=20, random_state=42)
+        self.clf = DecisionTreeClassifier(random_state=42)
+
+    def test_fit_predict_shape(self):
+        """Ensure output dimensions match input."""
+        self.clf.fit(self.X, self.y)
+        predictions = self.clf.predict(self.X)
+        self.assertEqual(predictions.shape, self.y.shape)
+
+    def test_max_depth_constraint(self):
+        """Ensure the tree respects the depth limit."""
+        depth_limit = 2
+        clf = DecisionTreeClassifier(max_depth=depth_limit, random_state=42)
+        clf.fit(self.X, self.y)
+        # In a binary tree, leaves <= 2^depth
+        self.assertLessEqual(clf.get_n_leaves(), 2**depth_limit)
+
+    def test_empty_data_raises_error(self):
+        """Ensure proper error handling for empty inputs."""
+        with self.assertRaises(ValueError):
+            self.clf.fit(np.array([]).reshape(0, 0), [])
+
+    def test_feature_mismatch(self):
+        """Ensure error when prediction features don't match training features."""
+        self.clf.fit(self.X, self.y)
+        with self.assertRaises(ValueError):
+            # X has 20 features, we pass 19
+            self.clf.predict(self.X[:, :19])
+
+if __name__ == '__main__':
+    unittest.main()
