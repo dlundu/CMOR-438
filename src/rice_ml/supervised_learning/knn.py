@@ -1,4 +1,6 @@
 """
+knn.py
+======
 From-scratch implementation of K-Nearest Neighbors for both classification
 and regression using NumPy.
 
@@ -21,6 +23,9 @@ Distance metrics supported
 - 'euclidean' : sqrt(sum((a - b)^2))   — default, sensitive to scale
 - 'manhattan' : sum(|a - b|)           — less sensitive to outliers
 
+⚠️  Always standardise features before using KNN — features with larger
+    numeric ranges will dominate distance calculations otherwise.
+
 Usage Example
 -------------
 >>> from rice_ml.supervised_learning.knn import KNNClassifier, KNNRegressor
@@ -36,6 +41,10 @@ Usage Example
 import numpy as np
 from typing import Literal, Optional, Tuple
 
+
+# ---------------------------------------------------------------------------
+# Distance computation
+# ---------------------------------------------------------------------------
 
 def _pairwise_distances(
     XA: np.ndarray,
@@ -95,6 +104,11 @@ def _neighbor_weights(distances: np.ndarray, scheme: str, eps: float = 1e-12) ->
     inv = 1.0 / np.maximum(distances, eps)
     w = np.where(has_hit, exact_hit.astype(float), inv)
     return w
+
+
+# ---------------------------------------------------------------------------
+# Shared base class
+# ---------------------------------------------------------------------------
 
 class _KNNBase:
     """
@@ -177,6 +191,11 @@ class _KNNBase:
 
         return distances, indices
 
+
+# ---------------------------------------------------------------------------
+# KNN Classifier
+# ---------------------------------------------------------------------------
+
 class KNNClassifier(_KNNBase):
     """
     K-Nearest Neighbors Classifier.
@@ -201,7 +220,7 @@ class KNNClassifier(_KNNBase):
 
     Examples
     --------
-    >>> from rice_ml.supervised.knn import KNNClassifier
+    >>> from rice_ml.supervised_learning.knn import KNNClassifier
     >>> clf = KNNClassifier(n_neighbors=5)
     >>> clf.fit(X_train, y_train)
     >>> clf.score(X_test, y_test)
@@ -250,6 +269,11 @@ class KNNClassifier(_KNNBase):
     def score(self, X: np.ndarray, y: np.ndarray) -> float:
         """Classification accuracy."""
         return float(np.mean(self.predict(X) == np.asarray(y).ravel()))
+
+
+# ---------------------------------------------------------------------------
+# KNN Regressor
+# ---------------------------------------------------------------------------
 
 class KNNRegressor(_KNNBase):
     """
