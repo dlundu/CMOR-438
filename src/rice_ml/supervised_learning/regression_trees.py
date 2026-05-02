@@ -9,7 +9,7 @@ Topic:       Supervised Learning > Decision Trees & Ensembles
 
 Usage Example
 -------------
->>> from rice_ml.supervised.decision_tree_regressor import DecisionTreeRegressor
+>>> from rice_ml.supervised_learning.decision_tree_regressor import DecisionTreeRegressor
 >>> model = DecisionTreeRegressor(max_depth=5, min_samples_split=10)
 >>> model.fit(X_train, y_train)
 >>> predictions = model.predict(X_test)
@@ -105,7 +105,7 @@ class DecisionTreeRegressor:
     Examples
     --------
     >>> import numpy as np
-    >>> from rice_ml.supervised.decision_tree_regressor import DecisionTreeRegressor
+    >>> from rice_ml.supervised_learning.decision_tree_regressor import DecisionTreeRegressor
     >>> rng = np.random.default_rng(0)
     >>> X = rng.standard_normal((200, 3))
     >>> y = 3 * X[:, 0] - 2 * X[:, 1] + rng.standard_normal(200) * 0.5
