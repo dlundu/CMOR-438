@@ -10,11 +10,11 @@ from .multilayer_perceptron import MLPBinaryClassifier
 from .knn import KNNClassifier, KNNRegressor
 
 # --- Tree-Based Models ---
-from .decision_tree_classifier import DecisionTreeClassifier
-from .decision_tree_regressor import DecisionTreeRegressor
+from .decision_trees import DecisionTreeClassifier
+from .regression_trees import DecisionTreeRegressor
 
 # --- Ensemble Methods ---
-from .ensemble import (
+from .ensemble_methods import (
     VotingClassifier,
     BaggingClassifier,
     RandomForestClassifier,
