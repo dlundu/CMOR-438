@@ -23,7 +23,7 @@ Usage Example
 
 import numpy as np
 from typing import Callable, List, Optional, Union
-from .decision_tree_regressor import DecisionTreeRegressor
+from .regression_trees import DecisionTreeRegressor
 def _validate(X, y=None):
     X = np.asarray(X, dtype=float)
     if X.ndim != 2:
