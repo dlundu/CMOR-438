@@ -71,7 +71,7 @@ class Perceptron:
     Examples
     --------
     >>> import numpy as np
-    >>> from rice_ml.supervised_learning import Perceptron
+    >>> from rice_ml.supervised_learning.perceptron import Perceptron
     >>> rng = np.random.default_rng(0)
     >>> X = rng.standard_normal((100, 2))
     >>> y = np.where(X[:, 0] + X[:, 1] > 0, 1, -1)   # linearly separable
@@ -97,6 +97,10 @@ class Perceptron:
         self.errors_: list[int] = []
         self.n_epochs_trained_: int = 0
 
+    # ------------------------------------------------------------------
+    # Private helpers
+    # ------------------------------------------------------------------
+
     def _net_input(self, X: np.ndarray) -> np.ndarray:
         """
         Compute the linear pre-activation: z = X @ w + b.
@@ -104,6 +108,10 @@ class Perceptron:
         Works for a single sample (1-D) or a batch (2-D).
         """
         return np.dot(X, self.w_) + self.b_
+
+    # ------------------------------------------------------------------
+    # Public API
+    # ------------------------------------------------------------------
 
     def fit(self, X: np.ndarray, y: np.ndarray) -> "Perceptron":
         """
