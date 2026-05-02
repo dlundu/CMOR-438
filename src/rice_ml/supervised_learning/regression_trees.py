@@ -9,7 +9,7 @@ Topic:       Supervised Learning > Decision Trees & Ensembles
 
 Usage Example
 -------------
->>> from rice_ml.supervised_learning.decision_tree_regressor import DecisionTreeRegressor
+>>> from rice_ml.supervised_learning.regression_trees import DecisionTreeRegressor
 >>> model = DecisionTreeRegressor(max_depth=5, min_samples_split=10)
 >>> model.fit(X_train, y_train)
 >>> predictions = model.predict(X_test)
@@ -18,6 +18,11 @@ Usage Example
 
 import numpy as np
 from typing import Optional, Union, Tuple
+
+
+# ---------------------------------------------------------------------------
+# Helper Functions
+# ---------------------------------------------------------------------------
 
 def _mse(y: np.ndarray) -> float:
     """Mean squared error of a target array around its mean (i.e., variance)."""
@@ -69,9 +74,14 @@ class _Node:
     def is_leaf(self) -> bool:
         return self.value is not None
 
+
+# ---------------------------------------------------------------------------
+# Decision Tree Regressor
+# ---------------------------------------------------------------------------
+
 class DecisionTreeRegressor:
     """
-    Decision Tree Regressor (CART) using variance reduction (MSE) as the
+    Decision Tree Regressor using variance reduction (MSE) as the
     splitting criterion.
 
     The algorithm greedily selects the feature and threshold that maximally
@@ -105,7 +115,7 @@ class DecisionTreeRegressor:
     Examples
     --------
     >>> import numpy as np
-    >>> from rice_ml.supervised_learning.decision_tree_regressor import DecisionTreeRegressor
+    >>> from rice_ml.supervised_learning.regression_trees import DecisionTreeRegressor
     >>> rng = np.random.default_rng(0)
     >>> X = rng.standard_normal((200, 3))
     >>> y = 3 * X[:, 0] - 2 * X[:, 1] + rng.standard_normal(200) * 0.5
@@ -129,6 +139,10 @@ class DecisionTreeRegressor:
 
         self.root_: Optional[_Node] = None
         self.n_features_: Optional[int] = None
+
+    # ------------------------------------------------------------------
+    # Private helpers
+    # ------------------------------------------------------------------
 
     def _resolve_feature_indices(self, n_features: int, rng: np.random.Generator) -> np.ndarray:
         """Return the array of feature column indices to evaluate at a split."""
