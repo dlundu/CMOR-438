@@ -15,7 +15,7 @@ Classes
 
 Usage Example
 -------------
->>> from rice_ml.supervised.ensemble import RandomForestClassifier
+>>> from rice_ml.supervised_learning.ensemble import RandomForestClassifier
 >>> rf = RandomForestClassifier(n_estimators=100, random_state=42)
 >>> rf.fit(X_train, y_train)
 >>> rf.score(X_test, y_test)
