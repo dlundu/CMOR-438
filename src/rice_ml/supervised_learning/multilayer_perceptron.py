@@ -28,7 +28,7 @@ Weights are updated: W[L] ← W[L] - η * dW[L]
 
 Usage Example
 -------------
->>> from rice_ml.supervised.multilayer_perceptron import MLPBinaryClassifier
+>>> from rice_ml.supervised_learning.multilayer_perceptron import MLPBinaryClassifier
 >>> model = MLPBinaryClassifier(hidden_layer_sizes=(64, 32), eta=0.01, epochs=500)
 >>> model.fit(X_train, y_train)
 >>> print(model.score(X_test, y_test))
@@ -85,7 +85,7 @@ class MLPBinaryClassifier:
     Examples
     --------
     >>> import numpy as np
-    >>> from rice_ml.supervised.multilayer_perceptron import MLPBinaryClassifier
+    >>> from rice_ml.supervised_learning.multilayer_perceptron import MLPBinaryClassifier
     >>> rng = np.random.default_rng(0)
     >>> X = rng.standard_normal((300, 4))
     >>> y = (X[:, 0] - X[:, 1] + 0.5 * X[:, 2] > 0).astype(int)
