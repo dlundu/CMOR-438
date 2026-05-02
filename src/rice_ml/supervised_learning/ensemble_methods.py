@@ -1,5 +1,6 @@
 """
 ensemble_methods.py
+===========
 Ensemble learning methods for classification and regression.
 
 Covered in: CMOR 438 / INDE 577 - Data Science & Machine Learning
@@ -15,7 +16,7 @@ Classes
 
 Usage Example
 -------------
->>> from rice_ml.supervised_learning.ensemble import RandomForestClassifier
+>>> from rice_ml.supervised_learning.ensemble_methods import RandomForestClassifier
 >>> rf = RandomForestClassifier(n_estimators=100, random_state=42)
 >>> rf.fit(X_train, y_train)
 >>> rf.score(X_test, y_test)
@@ -24,6 +25,11 @@ Usage Example
 import numpy as np
 from typing import Callable, List, Optional, Union
 from .regression_trees import DecisionTreeRegressor
+
+# ---------------------------------------------------------------------------
+# Utilities
+# ---------------------------------------------------------------------------
+
 def _validate(X, y=None):
     X = np.asarray(X, dtype=float)
     if X.ndim != 2:
@@ -43,6 +49,11 @@ def _majority_vote(votes: np.ndarray) -> np.ndarray:
         labels, counts = np.unique(votes[:, j], return_counts=True)
         result[j] = labels[np.argmax(counts)]
     return result
+
+
+# ---------------------------------------------------------------------------
+# Minimal internal classification tree (Gini, supports max_features)
+# ---------------------------------------------------------------------------
 
 class _Node:
     def __init__(self, feature=None, threshold=None, left=None, right=None, *, value=None):
@@ -113,6 +124,11 @@ class _DecisionTreeClassifier:
         X = np.asarray(X, dtype=float)
         return np.array([self._traverse(row, self.root_) for row in X])
 
+
+# ---------------------------------------------------------------------------
+# 1. Voting Classifier
+# ---------------------------------------------------------------------------
+
 class VotingClassifier:
     """
     Hard-voting ensemble. All estimators are trained on the full dataset and
@@ -136,6 +152,11 @@ class VotingClassifier:
 
     def score(self, X, y):
         return float(np.mean(self.predict(X) == np.asarray(y).ravel()))
+
+
+# ---------------------------------------------------------------------------
+# 2. Bagging Classifier
+# ---------------------------------------------------------------------------
 
 class BaggingClassifier:
     """
@@ -173,6 +194,11 @@ class BaggingClassifier:
 
     def score(self, X, y):
         return float(np.mean(self.predict(X) == np.asarray(y).ravel()))
+
+
+# ---------------------------------------------------------------------------
+# 3. Random Forest Classifier
+# ---------------------------------------------------------------------------
 
 class RandomForestClassifier:
     """
@@ -233,6 +259,12 @@ class RandomForestClassifier:
 
     def score(self, X, y):
         return float(np.mean(self.predict(X) == np.asarray(y).ravel()))
+
+
+# ---------------------------------------------------------------------------
+# 4. AdaBoost Classifier
+# ---------------------------------------------------------------------------
+
 class AdaBoostClassifier:
     """
     AdaBoost for binary classification using decision stumps (max_depth=1).
@@ -280,6 +312,11 @@ class AdaBoostClassifier:
 
     def score(self, X, y):
         return float(np.mean(self.predict(X) == np.asarray(y).ravel()))
+
+
+# ---------------------------------------------------------------------------
+# 5. Gradient Boosting Regressor
+# ---------------------------------------------------------------------------
 
 class GradientBoostingRegressor:
     """
