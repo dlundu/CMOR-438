@@ -1,5 +1,5 @@
 # --- Preprocessing ---
-from .preprocessing import (
+from .pre_processing import (
     standardize,
     minmax_scale,
     train_test_split,
@@ -7,7 +7,7 @@ from .preprocessing import (
 )
 
 # --- Postprocessing / Metrics ---
-from .postprocessing import (
+from .post_processing import (
     accuracy_score,
     precision_score,
     recall_score,
@@ -22,12 +22,10 @@ from .postprocessing import (
 )
 
 __all__ = [
-    # Preprocessing
     "standardize",
     "minmax_scale",
     "train_test_split",
     "train_val_test_split",
-    # Metrics
     "accuracy_score",
     "precision_score",
     "recall_score",
