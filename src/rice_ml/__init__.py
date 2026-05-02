@@ -5,24 +5,24 @@ A from-scratch machine learning library built for CMOR 438 / INDE 577.
 
 Subpackages
 -----------
-supervised   : classification and regression models
-unsupervised : clustering and dimensionality reduction
-processing   : preprocessing utilities and evaluation metrics
+supervised_learning   : classification and regression models
+unsupervised_learning : clustering and dimensionality reduction
+processing            : preprocessing utilities and evaluation metrics
 
 Quick start
 -----------
->>> from rice_ml.supervised import DecisionTreeClassifier, KNNClassifier
->>> from rice_ml.unsupervised import KMeans, PCA
+>>> from rice_ml.supervised_learning import DecisionTreeClassifier, KNNClassifier
+>>> from rice_ml.unsupervised_learning import KMeans, PCA
 >>> from rice_ml.processing import standardize, train_test_split, accuracy_score
 """
 
 # --- Subpackages ---
-from . import supervised
-from . import unsupervised
+from . import supervised_learning
+from . import unsupervised_learning
 from . import processing
 
 # --- Supervised ---
-from .supervised import (
+from .supervised_learning import (
     LinearModel,
     LogisticRegression,
     Perceptron,
@@ -39,7 +39,7 @@ from .supervised import (
 )
 
 # --- Unsupervised ---
-from .unsupervised import (
+from .unsupervised_learning import (
     SVD,
     PCA,
     KMeans,
@@ -68,8 +68,8 @@ from .processing import (
 
 __all__ = [
     # Subpackages
-    "supervised",
-    "unsupervised",
+    "supervised_learning",
+    "unsupervised_learning",
     "processing",
     # Supervised
     "LinearModel",
