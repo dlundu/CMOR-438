@@ -1,5 +1,6 @@
 """
 multilayer_perceptron.py
+========================
 A from-scratch implementation of a Multilayer Perceptron (MLP) for binary
 classification, trained with backpropagation and batch gradient descent.
 
@@ -38,6 +39,11 @@ import numpy as np
 import warnings
 from typing import List, Optional, Tuple
 
+
+# ---------------------------------------------------------------------------
+# Activation functions (module-level, easy to unit-test independently)
+# ---------------------------------------------------------------------------
+
 def _relu(Z: np.ndarray) -> np.ndarray:
     """ReLU activation: max(0, Z). Applied element-wise."""
     return np.maximum(0.0, Z)
@@ -52,6 +58,11 @@ def _sigmoid(Z: np.ndarray) -> np.ndarray:
     """Numerically stable sigmoid: 1 / (1 + exp(-Z))."""
     Z_clipped = np.clip(Z, -500, 500)
     return 1.0 / (1.0 + np.exp(-Z_clipped))
+
+
+# ---------------------------------------------------------------------------
+# MLP Binary Classifier
+# ---------------------------------------------------------------------------
 
 class MLPBinaryClassifier:
     """
@@ -113,6 +124,10 @@ class MLPBinaryClassifier:
         self.weights_: List[np.ndarray] = []
         self.cost_history_: List[float] = []
         self._n_layers: int = 0
+
+    # ------------------------------------------------------------------
+    # Private helpers
+    # ------------------------------------------------------------------
 
     @staticmethod
     def _with_bias(A: np.ndarray) -> np.ndarray:
@@ -200,6 +215,10 @@ class MLPBinaryClassifier:
             dW[l - 1] = self._with_bias(A[l - 1]).T @ deltas[l] / n
 
         return dW
+
+    # ------------------------------------------------------------------
+    # Public API
+    # ------------------------------------------------------------------
 
     def fit(self, X: np.ndarray, y: np.ndarray) -> "MLPBinaryClassifier":
         """
