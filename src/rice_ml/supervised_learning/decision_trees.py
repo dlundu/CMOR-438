@@ -8,7 +8,7 @@ Topic:       Supervised Learning > Decision Trees & Ensembles
 
 Usage Example
 -------------
->>> from rice_ml.supervised.decision_tree_classifier import DecisionTreeClassifier
+>>> from rice_ml.supervised_learning.decision_tree_classifier import DecisionTreeClassifier
 >>> clf = DecisionTreeClassifier(max_depth=4, random_state=42)
 >>> clf.fit(X_train, y_train)
 >>> clf.score(X_test, y_test)
