@@ -23,7 +23,7 @@ Distance metrics supported
 
 Usage Example
 -------------
->>> from rice_ml.supervised.knn import KNNClassifier, KNNRegressor
+>>> from rice_ml.supervised_learning.knn import KNNClassifier, KNNRegressor
 >>> clf = KNNClassifier(n_neighbors=5)
 >>> clf.fit(X_train, y_train)
 >>> print(clf.score(X_test, y_test))
@@ -270,7 +270,7 @@ class KNNRegressor(_KNNBase):
 
     Examples
     --------
-    >>> from rice_ml.supervised.knn import KNNRegressor
+    >>> from rice_ml.supervised_learning.knn import KNNRegressor
     >>> reg = KNNRegressor(n_neighbors=7, weights='distance')
     >>> reg.fit(X_train, y_train)
     >>> reg.score(X_test, y_test)
