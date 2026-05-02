@@ -3,12 +3,6 @@ rice_ml
 =======
 A from-scratch machine learning library built for CMOR 438 / INDE 577.
 
-Subpackages
------------
-supervised_learning   : classification and regression models
-unsupervised_learning : clustering and dimensionality reduction
-processing            : preprocessing utilities and evaluation metrics
-
 Quick start
 -----------
 >>> from rice_ml.supervised_learning import DecisionTreeClassifier, KNNClassifier
@@ -67,11 +61,9 @@ from .processing import (
 )
 
 __all__ = [
-    # Subpackages
     "supervised_learning",
     "unsupervised_learning",
     "processing",
-    # Supervised
     "LinearModel",
     "LogisticRegression",
     "Perceptron",
@@ -85,13 +77,11 @@ __all__ = [
     "RandomForestClassifier",
     "AdaBoostClassifier",
     "GradientBoostingRegressor",
-    # Unsupervised
     "SVD",
     "PCA",
     "KMeans",
     "DBSCAN",
     "LabelPropagation",
-    # Processing
     "standardize",
     "minmax_scale",
     "train_test_split",
